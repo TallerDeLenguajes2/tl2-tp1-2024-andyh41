@@ -1,9 +1,10 @@
-
+using System;
+using System.Collections.Generic;
 
 namespace EmpresaDeCadetes
 {
 
-    enum Estado
+    public enum Estado
     {
         Aceptado,
         EnCurso,
@@ -17,11 +18,38 @@ namespace EmpresaDeCadetes
 
         private Cliente cliente;
 
+        Estado estadopedido;
+
         public int Nro { get => nro; set => nro = value; }
         public string Obs { get => obs; set => obs = value; }
-        internal Cliente Cliente { get => cliente; set => cliente = value; }
+        public Estado Estadopedido { get => estadopedido; set => estadopedido = value; }
 
-        enum Estado;
+        public Pedidos(string nombre, string direccion, string telefono, string refDeDireccion){
+
+            this.cliente = new Cliente(){
+                Nombre = nombre,
+                Direccion = direccion,
+                Telefono = telefono,
+                RefDeDireccion = refDeDireccion
+            };
+        }
+
+        public void VerDireccionCliente(){
+            Console.WriteLine("Direccion: ", this.cliente.Direccion);
+        }
+        public void VerDatosCliente(){
+            Console.WriteLine("=======================================");
+            Console.WriteLine("         Datos del Cliente");
+            Console.WriteLine("=======================================");
+            Console.WriteLine("Nombre: ",this.cliente.Nombre);
+            VerDireccionCliente();
+            Console.WriteLine("Telefono: ", this.cliente.Telefono);
+            Console.WriteLine("Referencia de direccion: ", this.cliente.RefDeDireccion);
+            Console.WriteLine("=======================================");
+            Console.WriteLine(" ");
+        }
+ 
+        
 
     }
     public class Cliente {
@@ -42,23 +70,60 @@ namespace EmpresaDeCadetes
         private string nombre;
         private string direccion;
         private string telefono;
-        private List<Pedidos> listaPedidos;
+        private List<Pedidos> listaPedidos = new List<Pedidos>();
 
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        internal List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
+
+        public void AgregarPedido(Pedidos pedido){
+            listaPedidos.Add(pedido);
+        }
+
+        public void EliminarPedido(Pedidos pedido){
+            listaPedidos.Remove(pedido);
+        }
+        public int JornalACobrar(){
+            int jornal;
+            jornal = 500 * this.listaPedidos.Count;
+            return jornal;
+        }
+
+        public Cadete(string nombre, string direccion, string telefono, int id){
+
+         
+            Nombre = nombre;
+            Direccion = direccion;
+            Telefono = telefono;
+            Id = id;
+         
+        }
+    
+        //internal List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
     }
 
     public class Cadeteria {
         private string nombre;
         private string telefono;
-        private List<Cadete> listaCadetes;
+        private List<Cadete> listaCadetes = new List<Cadete>();
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        internal List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
+
+        public void AgregarCadete(Cadete cadete){
+            listaCadetes.Add(cadete);
+        }
+
+        public Cadeteria(string nombre, string telefono){
+
+           
+            Nombre = nombre;
+            Telefono = telefono;
+           
+        }
+
+        //internal List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
     }
 }
    
