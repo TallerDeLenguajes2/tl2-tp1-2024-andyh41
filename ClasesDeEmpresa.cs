@@ -18,13 +18,19 @@ namespace EmpresaDeCadetes
 
         private Cliente cliente;
 
-        Estado estadopedido;
+        Estado estadoPedido;
 
         public int Nro { get => nro; set => nro = value; }
         public string Obs { get => obs; set => obs = value; }
-        public Estado Estadopedido { get => estadopedido; set => estadopedido = value; }
+        public Estado EstadoPedido { get => estadoPedido; set => estadoPedido = value; }
 
-        public Pedidos(string nombre, string direccion, string telefono, string refDeDireccion){
+        private static int nextNumeroPedido = 1;
+
+        public Pedidos(string nombre, string direccion, string telefono, string refDeDireccion, string obs){
+
+            Nro = nextNumeroPedido++;
+            Obs = obs;
+            EstadoPedido = Estado.Aceptado;
 
             this.cliente = new Cliente(){
                 Nombre = nombre,
@@ -32,6 +38,11 @@ namespace EmpresaDeCadetes
                 Telefono = telefono,
                 RefDeDireccion = refDeDireccion
             };
+        }
+
+        public void CambiarEstado(Estado estado)
+        {
+            EstadoPedido = estado;
         }
 
         public void VerDireccionCliente(){
@@ -85,14 +96,13 @@ namespace EmpresaDeCadetes
             listaPedidos.Remove(pedido);
         }
         public int JornalACobrar(){
-            int jornal;
-            jornal = 500 * this.listaPedidos.Count;
-            return jornal;
+            return listaPedidos.Count * 500;
         }
 
-        public Cadete(string nombre, string direccion, string telefono, int id){
+        private static int nextId = 1;
+        public Cadete(string nombre, string direccion, string telefono){
 
-         
+            Id = nextId++; 
             Nombre = nombre;
             Direccion = direccion;
             Telefono = telefono;
@@ -116,8 +126,7 @@ namespace EmpresaDeCadetes
         }
 
         public Cadeteria(string nombre, string telefono){
-
-           
+ 
             Nombre = nombre;
             Telefono = telefono;
            
