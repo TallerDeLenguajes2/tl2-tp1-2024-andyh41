@@ -15,26 +15,26 @@ namespace EmpresaDeCadetes
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
+        public List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
 
         public void AgregarPedido(Pedidos pedido){
-            listaPedidos.Add(pedido);
+            ListaPedidos.Add(pedido);
         }
 
         public void EliminarPedido(Pedidos pedido){
-            listaPedidos.Remove(pedido);
+            ListaPedidos.Remove(pedido);
         }
         public int JornalACobrar(){
-            return listaPedidos.Count * 500;
+            return ListaPedidos.Count * 500;
         }
 
-        private static int nextId = 1;
+        private static int nextId = 0;
         public Cadete(string nombre, string direccion, string telefono){
 
             Id = nextId++; 
             Nombre = nombre;
             Direccion = direccion;
             Telefono = telefono;
-            Id = id;
          
         }
     

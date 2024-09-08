@@ -6,6 +6,12 @@ using System.IO;
 namespace EmpresaDeCadetes
 {
  
+    public enum Estado
+    {
+        Aceptado,
+        EnCurso,
+        Finalizado
+    }
  
     public class Pedidos {
         
@@ -21,7 +27,7 @@ namespace EmpresaDeCadetes
         public string Obs { get => obs; set => obs = value; }
         public Estado EstadoPedido { get => estadoPedido; set => estadoPedido = value; }
 
-        private static int nextNumeroPedido = 1;
+        private static int nextNumeroPedido = 0;
 
         public Pedidos(string nombre, string direccion, string telefono, string refDeDireccion, string obs){
 
