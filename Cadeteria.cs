@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace EmpresaDeCadetes
 {
@@ -44,13 +45,14 @@ namespace EmpresaDeCadetes
                 }
             }
 
-            /*Cadete elcadete = from trabajador in listaCadetes
-                          where trabajador.Id = idcadete
+            /*var elcadete = from trabajador in ListaCadetes
+                          where trabajador.Id == idcadete
                           select trabajador;
-            Pedidos elpedido = from pedir in listaPedidos
-                          where pedir.Nro = idpedido
+            var elpedido = from pedir in ListaPedidos
+                          where pedir.Nro == idpedido
                           select pedir;
-            elcadete.AgregarPedido(elpedido);*/
+            
+            elcadete[0].AgregarPedido(elpedido[0]);*/
        }
 
 

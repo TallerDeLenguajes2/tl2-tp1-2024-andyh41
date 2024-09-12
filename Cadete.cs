@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace EmpresaDeCadetes
 {
@@ -25,7 +26,14 @@ namespace EmpresaDeCadetes
             ListaPedidos.Remove(pedido);
         }
         public int JornalACobrar(){
-            return ListaPedidos.Count * 500;
+            return this.TotalPedidos() * 500;
+        }
+
+        public int TotalPedidos(){
+            var pedidosTerminados = from ped in ListaPedidos
+                              where ped.EstadoPedido == Estado.Finalizado
+                              select ped;
+            return pedidosTerminados.Count();
         }
 
         private static int nextId = 0;

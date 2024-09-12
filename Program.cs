@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using EmpresaDeCadetes;
+using System.Linq;
 using System.IO;
 using System.Diagnostics.Contracts;
+using EmpresaDeCadetes;
 using CargaDeDatos;
 
 public static class Program
@@ -50,7 +51,7 @@ public static class Program
                         Console.WriteLine(" ======== Para asignar un pedido a un cadete ========= ");
                       
                         // pide el id del cadete y el pedido 
-                        Console.WriteLine("Ingrese el id del cadete actual: ");
+                        Console.WriteLine("Ingrese el id del cadete: ");
                         int.TryParse(Console.ReadLine(), out int idCad);
                         Console.WriteLine("Ingrese el id del pedido: ");
                         int.TryParse(Console.ReadLine(), out int idPed);
@@ -67,7 +68,7 @@ public static class Program
                         Console.WriteLine("Ingrese el id del pedido: ");
                         int.TryParse(Console.ReadLine(), out int idPedir);
                        
-                        Console.WriteLine("Ingrese la opcion de cambio de estado: ");
+                        Console.WriteLine("Ingrese la opcion a la que quiere cambiar el estado del pedido: ");
                         Console.WriteLine("1. Aceptado");
                         Console.WriteLine("2. En Curso");
                         Console.WriteLine("3. Entregado");
@@ -116,6 +117,22 @@ public static class Program
 
         } while (opcion!=0);
 
-
+        int envios=0;
+        Console.Clear();
+        Console.WriteLine("============= INFORME ================");
+        foreach (Cadete cad in sucursal.ListaCadetes)
+        {
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine($"Nombre del cadete: {cad.Nombre}");
+            Console.WriteLine($"Total de pedidos: {cad.ListaPedidos.Count()}");
+            Console.WriteLine($"Pedidos finalizados: {cad.TotalPedidos}");
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine(" ");
+            //envios+=cad.TotalPedidos;
+            Console.ReadKey();
+        }
+        Console.WriteLine($"-------- TOTAL DE ENVIOS: {envios} ----------");
+        Console.WriteLine($"-------- PROMEDIO DE ENVIOS POR CADETE: {envios/sucursal.ListaCadetes.Count()} ----------");
+        Console.ReadKey();
     }
 }
