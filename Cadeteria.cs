@@ -43,6 +43,14 @@ namespace EmpresaDeCadetes
                     }
                 }
             }
+
+            /*Cadete elcadete = from trabajador in listaCadetes
+                          where trabajador.Id = idcadete
+                          select trabajador;
+            Pedidos elpedido = from pedir in listaPedidos
+                          where pedir.Nro = idpedido
+                          select pedir;
+            elcadete.AgregarPedido(elpedido);*/
        }
 
 

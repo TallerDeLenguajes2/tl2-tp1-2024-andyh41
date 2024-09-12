@@ -38,6 +38,5 @@ namespace EmpresaDeCadetes
          
         }
     
-        //internal List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
     }
 }
