@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Linq;
 
 namespace EmpresaDeCadetes
@@ -15,11 +14,15 @@ namespace EmpresaDeCadetes
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
-        public List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
+        //public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
+        //public List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
 
         public void AgregarCadete(Cadete cadete){
-            ListaCadetes.Add(cadete);
+            listaCadetes.Add(cadete);
+        }
+
+        public void AgregarPedido(Pedidos pedido){
+            listaPedidos.Add(pedido);
         }
 
         public Cadeteria(string nombre, string telefono){
@@ -103,6 +106,28 @@ namespace EmpresaDeCadetes
         }
 
 
+
+
+        public void Informe(){
+
+        int envios=0;
+        Console.Clear();
+        Console.WriteLine("============= INFORME ================");
+        foreach (Cadete cad in this.listaCadetes)
+        {
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine($"Nombre del cadete: {cad.Nombre}");
+            Console.WriteLine($"Total de pedidos: {cad.TotalPedidos()}");
+            Console.WriteLine($"Pedidos finalizados: {cad.PedidosEnviados()}");
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine(" ");
+            envios+=cad.PedidosEnviados();
+            Console.ReadKey();
+        }
+        Console.WriteLine($"-------- TOTAL DE ENVIOS: {envios} ----------");
+        Console.WriteLine($"-------- PROMEDIO DE ENVIOS POR CADETE: {envios/this.listaCadetes.Count()} ----------");
+        Console.ReadKey();
+        }
 
     }
 }

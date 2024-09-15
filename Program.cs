@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Diagnostics.Contracts;
 using EmpresaDeCadetes;
 using CargaDeDatos;
 
@@ -42,6 +41,7 @@ public static class Program
                         string obser = Console.ReadLine();
                         
                         var pedido = new Pedidos(name, dir, tel, refe, obser);
+                        sucursal.AgregarPedido(pedido);
                         Console.WriteLine($"--- El id de su pedido es: {pedido.Nro} ---");
                         Console.WriteLine(" ");
                     break;
@@ -117,22 +117,6 @@ public static class Program
 
         } while (opcion!=0);
 
-        int envios=0;
-        Console.Clear();
-        Console.WriteLine("============= INFORME ================");
-        foreach (Cadete cad in sucursal.ListaCadetes)
-        {
-            Console.WriteLine("----------------------------------------------");
-            Console.WriteLine($"Nombre del cadete: {cad.Nombre}");
-            Console.WriteLine($"Total de pedidos: {cad.ListaPedidos.Count()}");
-            Console.WriteLine($"Pedidos finalizados: {cad.TotalPedidos}");
-            Console.WriteLine("----------------------------------------------");
-            Console.WriteLine(" ");
-            //envios+=cad.TotalPedidos;
-            Console.ReadKey();
-        }
-        Console.WriteLine($"-------- TOTAL DE ENVIOS: {envios} ----------");
-        Console.WriteLine($"-------- PROMEDIO DE ENVIOS POR CADETE: {envios/sucursal.ListaCadetes.Count()} ----------");
-        Console.ReadKey();
+        sucursal.Informe();
     }
 }
