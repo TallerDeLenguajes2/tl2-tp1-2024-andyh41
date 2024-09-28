@@ -40,7 +40,7 @@ public static class Program
                         Console.WriteLine(" Ingrese observacion del pedido: ");
                         string obser = Console.ReadLine();
                         
-                        var pedido = new Pedidos(name, dir, tel, refe, obser);
+                        var pedido = new Pedidos(name, dir, tel, refe, obser, null);
                         sucursal.AgregarPedido(pedido);
                         Console.WriteLine($"--- El id de su pedido es: {pedido.Nro} ---");
                         Console.WriteLine(" ");
@@ -80,20 +80,16 @@ public static class Program
 
 
                     case 4:
-                         Console.WriteLine(" ======== Para RE asignar un pedido a otro cadete ========= ");
-                        // pide el id del cadete inicial, cadete nuevo, el pedido y controla que sean un num entero
-                       
-                        Console.WriteLine("Ingrese el id del cadete actual: ");
-                        int.TryParse(Console.ReadLine(), out int idcadete1);
+                        Console.WriteLine(" ======== Para RE asignar un pedido a otro cadete ========= ");
                        
                         Console.WriteLine("Ingrese el id del cadete nuevo: ");
-                        int.TryParse(Console.ReadLine(), out int idcadete2);
+                        int.TryParse(Console.ReadLine(), out int idcadete1);
                     
                         Console.WriteLine("Ingrese el id del pedido: ");
                         int.TryParse(Console.ReadLine(), out int idpedido);
 
                         // Reasigna el pedido
-                        sucursal.ReAsignarpedido(idcadete1, idcadete2, idpedido);
+                        sucursal.Asignarpedido(idcadete1, idpedido);
                         Console.WriteLine(" ");  
                     break;
 

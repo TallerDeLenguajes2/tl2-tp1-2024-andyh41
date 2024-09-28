@@ -42,7 +42,8 @@ namespace EmpresaDeCadetes
                     {
                         if (idpedido==pedir.Nro)
                         {
-                            trabajador.AgregarPedido(pedir);
+                            //trabajador.AgregarPedido(pedir);
+                            pedir.CadeteAsignado = trabajador;
                         }
                     }
                 }
@@ -61,8 +62,8 @@ namespace EmpresaDeCadetes
 
        public void EstadoPedido(int idpedido, int numerocambio){
 
-            foreach (Cadete trabajador in listaCadetes)// lista de cadetes con min o may?
-            { 
+            //foreach (Cadete trabajador in listaCadetes)
+            //{ 
                 foreach (Pedidos pedir in listaPedidos)// se cambia el estado en la lista de pedidos de cadetedes y en la lista de pedidos de la cadeteria?
                 {
                     if (idpedido==pedir.Nro)
@@ -83,11 +84,28 @@ namespace EmpresaDeCadetes
                         pedir.CambiarEstado(cambio);
                     }
                 }   
-            }
+            //}
 
        }
 
-        public void ReAsignarpedido(int idcadete, int idnuevocadete, int idpedido)
+    public int JornalACobrar(int idcade){
+        return PedidosEnviados(idcade)*500;
+    } 
+    public int TotalPedidos(int idcade){
+        var pedidosTotal = from ped in listaPedidos
+                              where ped.CadeteAsignado.Id == idcade
+                              select ped;
+        return pedidosTotal.Count();
+    }
+
+    public int PedidosEnviados(int idcade){
+        var pedidosFinalizados = from ped in listaPedidos
+                              where ped.CadeteAsignado.Id == idcade && ped.EstadoPedido == Estado.Finalizado 
+                              select ped;
+        return pedidosFinalizados.Count();
+    }
+
+        /*public void ReAsignarpedido(int idcadete, int idnuevocadete, int idpedido)
         {
             foreach (Cadete trabajador in listaCadetes)// lista de cadetes con min o may?
             {
@@ -103,7 +121,7 @@ namespace EmpresaDeCadetes
                 }
             }
             Asignarpedido(idnuevocadete, idpedido);
-        }
+        }*/
 
 
 
@@ -117,11 +135,12 @@ namespace EmpresaDeCadetes
         {
             Console.WriteLine("----------------------------------------------");
             Console.WriteLine($"Nombre del cadete: {cad.Nombre}");
-            Console.WriteLine($"Total de pedidos: {cad.TotalPedidos()}");
-            Console.WriteLine($"Pedidos finalizados: {cad.PedidosEnviados()}");
+            Console.WriteLine($"Total de pedidos: {TotalPedidos(cad.Id)}");
+            Console.WriteLine($"Pedidos finalizados: {PedidosEnviados(cad.Id)}");
+            Console.WriteLine($"Jornal a cobrar: {JornalACobrar(cad.Id)}");
             Console.WriteLine("----------------------------------------------");
             Console.WriteLine(" ");
-            envios+=cad.PedidosEnviados();
+            envios+=PedidosEnviados(cad.Id);
             Console.ReadKey();
         }
         Console.WriteLine($"-------- TOTAL DE ENVIOS: {envios} ----------");
