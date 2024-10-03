@@ -41,7 +41,7 @@ namespace EmpresaDeCadetes
             return listaPedidos.Count();
         }*/
 
-        private static int nextId = 0;
+        private static int nextId = 1;
         public Cadete(string nombre, string direccion, string telefono){
 
             Id = nextId++; 

@@ -9,16 +9,42 @@ public static class Program
 {
     static void Main(string[] args)
     {
-        // carga cvs de cadeteria y asigna a una variable llamada sucursal
-        var sucursal = CargarDatos.ArchivoCVScadeteria(); 
-        // carga cadetes a la cadeteria
-        CargarDatos.ArchivoCVScadete(sucursal); 
+        // cargar los datos de cadeteria y catedes por archivo Json o CSV dependiendo de la opcion elegida
+        Console.WriteLine("1. CSV");
+        Console.WriteLine("2. JSON");
+        Console.Write("\nSeleccione el tipo de acceso a datos:");
+        string carga = Console.ReadLine();
+
+        Cadeteria sucursal = null;
+
+            if (carga=="1") // carga de datos desde CSV
+            {
+                var acceso = new AccesoCSV("ArchivosCSV/Cadeteria.csv", "ArchivosCSV/Cadete.csv");
+                sucursal = acceso.CargarCadeteria();
+                List<Cadete> cadetes = acceso.CargarCadetes();
+                foreach (Cadete uno in cadetes)
+                {
+                    sucursal.AgregarCadete(uno);
+                }
+            }else // carga de datos desde JSON
+            {
+                var acceso = new AccesoJSON("ArchivosJson/Cadeteria.json", "ArchivosJson/Cadetes.json");
+                sucursal = acceso.CargarCadeteria();
+                var cadetes = acceso.CargarCadetes();
+                foreach (Cadete uno in cadetes)
+                {
+                    sucursal.AgregarCadete(uno);
+                }
+            }
+            
+        
+        Console.Clear();
 
         int opcion=5;
         
         do
         {
-            CargarDatos.Menu(); // muestra el menu
+            MiMenu.menu(); // muestra el menu
             Console.WriteLine(" Ingrese una opcion: "); // seleccionar la opcion del menu
             if (int.TryParse(Console.ReadLine(), out opcion)) // conviente el string a int y controla la salida correcta de int
             {

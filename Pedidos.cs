@@ -29,7 +29,7 @@ namespace EmpresaDeCadetes
         public Estado EstadoPedido { get => estadoPedido; set => estadoPedido = value; }
         public Cadete CadeteAsignado { get => cadete; set => cadete = value; }
 
-        private static int nextNumeroPedido = 0;
+        private static int nextNumeroPedido = 1;
 
         public Pedidos(string nombre, string direccion, string telefono, string refDeDireccion, string obs, Cadete cadete){
 

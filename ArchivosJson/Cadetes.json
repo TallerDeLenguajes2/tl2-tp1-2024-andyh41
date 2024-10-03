@@ -1,0 +1,27 @@
+[
+    {
+      "Nombre": "Cadete 1",
+      "Direccion": "barrio norte",
+      "Telefono": "3815125703"
+    },
+    {
+      "Nombre": "Cadete 2",
+      "Direccion": "barrio sur",
+      "Telefono": "3812345678"
+    },
+    {
+      "Nombre": "Cadete 3",
+      "Direccion": "centro",
+      "Telefono": "3818765432"
+    },
+    {
+      "Nombre": "Cadete 4",
+      "Direccion": "yerba buena",
+      "Telefono": "3819988776"
+    },
+    {
+      "Nombre": "Cadete 5",
+      "Direccion": "los nogales",
+      "Telefono": "3814455667"
+    }
+  ]

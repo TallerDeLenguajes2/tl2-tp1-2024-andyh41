@@ -1,51 +1,87 @@
 using System;
 using System.IO;
+using System.Text.Json;
+using Microsoft.VisualBasic;
 using EmpresaDeCadetes;
 
 namespace CargaDeDatos
 {
-    public class CargarDatos
+    public abstract class AccesoADatos
     {
-        public static Cadeteria ArchivoCVScadeteria()
+        public abstract Cadeteria CargarCadeteria();
+        public abstract List<Cadete> CargarCadetes();
+    }
+    public class AccesoCSV : AccesoADatos
+    {
+        private string cadeteriaFileName;
+        private string cadetesFileName;
+
+        public AccesoCSV(string cadeteriaFilePath, string cadetesFilePath)
         {
-            string filePath = "Cadeteria.csv"; // Ruta al archivo CSV
-
-            string content; // Declarar 'content'
-
-            // Leer el contenido del archivo
-            using (var reader = new StreamReader(filePath))
-            {
-                content = reader.ReadToEnd(); // Leer todo el contenido del archivo
-            }
-
-            string[] datos = content.Split(','); 
-            var sucur = new Cadeteria(datos[0], datos[1]);
-
-            return sucur;
+            this.cadeteriaFileName = cadeteriaFilePath;
+            this.cadetesFileName = cadetesFilePath;
         }
 
-        public static void ArchivoCVScadete(Cadeteria sucursal)
+        public override Cadeteria CargarCadeteria()
         {
-            string filePath = "Cadete.csv"; // Ruta al archivo CSV
+            string content;
+            using (var reader = new StreamReader(cadeteriaFileName))
+            {
+                content = reader.ReadToEnd();
+            }
 
-            using (var reader = new StreamReader(filePath))
+            string[] datos = content.Split(',');
+            var sucursal = new Cadeteria(datos[0], datos[1]);
+            return sucursal;
+        }
+
+        public override List<Cadete> CargarCadetes()
+        {
+            var listaCadetes = new List<Cadete>();
+
+            using (var reader = new StreamReader(cadetesFileName))
             {
                 string line;
-                
-                // Leer el archivo línea por línea
                 while ((line = reader.ReadLine()) != null)
                 {
-                    // Dividir la línea en valores usando la coma como delimitador
                     var values = line.Split(',');
-                    // Crea un cadete por linea y le asigna los datos tomados del archivo CSV
-                    var cadetes = new Cadete(values[0], values[1], values[2]);
-                    // Agrega el cadete creado a la lista de cadetes de la cadeteria
-                    sucursal.AgregarCadete(cadetes);
-                }        
+                    var cadete = new Cadete(values[0], values[1], values[2]);
+                    listaCadetes.Add(cadete);
+                }
             }
+            return listaCadetes;
+        }
+    }
+
+    public class AccesoJSON : AccesoADatos
+    {
+        private string cadeteriaFileName;
+        private string cadetesFileName;
+
+        public AccesoJSON(string cadeteriaFilePath, string cadetesFilePath)
+        {
+            this.cadeteriaFileName = cadeteriaFilePath;
+            this.cadetesFileName = cadetesFilePath;
         }
 
-        public static void Menu(){
+        public override Cadeteria CargarCadeteria()
+        {
+            string jsonString = File.ReadAllText(cadeteriaFileName);
+            var sucursal = JsonSerializer.Deserialize<Cadeteria>(jsonString);
+            return sucursal;
+        }
+
+        public override List<Cadete> CargarCadetes()
+        {
+            string jsonString = File.ReadAllText(cadetesFileName);
+            List<Cadete> listaCadetes = JsonSerializer.Deserialize<List<Cadete>>(jsonString);
+            return listaCadetes;
+        }
+    }
+
+    public class MiMenu
+    {
+        public static void menu(){
             Console.WriteLine("=======================================");
             Console.WriteLine("                 MENU");
             Console.WriteLine("=======================================");
@@ -57,8 +93,6 @@ namespace CargaDeDatos
             Console.WriteLine("=======================================");
             Console.WriteLine(" ");
         }
-
-
     }
 
 }
