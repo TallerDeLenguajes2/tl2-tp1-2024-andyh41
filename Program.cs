@@ -139,6 +139,7 @@ public static class Program
 
         } while (opcion!=0);
 
-        sucursal.Informe();
+        Console.Clear();
+        Console.WriteLine(sucursal.Informe());
     }
 }
