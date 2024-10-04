@@ -14,8 +14,7 @@ namespace EmpresaDeCadetes
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        //public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
-        //public List<Pedidos> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
+
 
         public void AgregarCadete(Cadete cadete){
             listaCadetes.Add(cadete);
@@ -105,25 +104,7 @@ namespace EmpresaDeCadetes
         return pedidosFinalizados.Count();
     }
 
-        /*public void ReAsignarpedido(int idcadete, int idnuevocadete, int idpedido)
-        {
-            foreach (Cadete trabajador in listaCadetes)// lista de cadetes con min o may?
-            {
-                if (idcadete==trabajador.Id)
-                {
-                    foreach (Pedidos pedir in listaPedidos)
-                    {
-                        if (idpedido==pedir.Nro)
-                        {
-                            trabajador.EliminarPedido(pedir);
-                        }
-                    }
-                }
-            }
-            Asignarpedido(idnuevocadete, idpedido);
-        }*/
-
-
+    
 
 
         public void Informe(){

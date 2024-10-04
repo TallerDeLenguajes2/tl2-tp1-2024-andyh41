@@ -16,30 +16,7 @@ namespace EmpresaDeCadetes
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        //public List<Pedidos> listaPedidos { get => listaPedidos; set => listaPedidos = value; }
 
-        /*public void AgregarPedido(Pedidos pedido){
-            listaPedidos.Add(pedido);
-        }
-
-        public void EliminarPedido(Pedidos pedido){
-            listaPedidos.Remove(pedido);
-        }
-        
-        public int JornalACobrar(){
-            return this.PedidosEnviados() * 500;
-        }
-
-        public int PedidosEnviados(){
-            var pedidosTerminados = from ped in listaPedidos
-                              where ped.EstadoPedido == Estado.Finalizado
-                              select ped;
-            return pedidosTerminados.Count();
-        }
-
-        public int TotalPedidos(){
-            return listaPedidos.Count();
-        }*/
 
         private static int nextId = 1;
         public Cadete(string nombre, string direccion, string telefono){
